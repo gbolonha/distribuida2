@@ -1,0 +1,14 @@
+    auto agora = std::chrono::system_clock::now();
+        std::time_t tempo_c = std::chrono::system_clock::to_time_t(agora);
+        std::tm* local_time = std::localtime(&tempo_c);
+        std::ofstream log_file("server.log", std::ios::app);
+        if (log_file.is_open()) {
+            log_file << "[" << std::put_time(local_time, "%Y-%m-%d %H:%M:%S") << "] "
+                    << "[" << type << "] "
+                    << "[" << service << "] "
+                    << "[" << file << "] "
+                    << msg << "\n";
+            log_file.close();
+        } else {
+            std::cerr << "Erro ao abrir o arquivo server.log para gravação." << std::endl;
+        }
